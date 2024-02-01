@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZJ</title>
+</head>
+
+<body>
+    <script>
+        function getQueryString(name) {
+            const url_string = window.location.href
+            const url = new URL(url_string);
+            return url.searchParams.get(name);
+        }
+        (function () {
+            var id = getQueryString("books")
+
+            const isQQ = () => {
+                const userAgent = navigator.userAgent.toLowerCase()
+                return /qq\//.test(userAgent)
+            }
+
+            const isWeChat = () => {
+                const userAgent = navigator.userAgent.toLowerCase()
+                return /micromessenger/.test(userAgent)
+            }
+
+            const $body = document.body
+
+            if (isQQ() || isWeChat()) {
+                $body.style.padding = 0
+                $body.style.margin = 0
+                $body.innerHTML = `
+                <div style="width: 100%; height: 100vh;">
+                    <img src="https://imgsrc.baidu.com/forum/pic/item/dbb44aed2e738bd47f0e7809e78b87d6277ff9d8.jpg" alt="picture" style="width: 100%;">
+                </div>
+            `
+                document.querySelector('title').textContent = '请使用浏览器打开'
+            }else {
+                location.href = "http://120.46.64.226:8080/book/" + id;
+            }
+        })()
+    </script>
+</body>
+
+</html>
